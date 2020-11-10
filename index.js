@@ -28,11 +28,14 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
-  
+  counter1 is a function declaration while counter two is a function expression. 
+
   2. Which of the two uses a closure? How can you tell?
+  counter1 uses a closure. It has a parent and child function.
   
   3. In what scenario would the counter1 code be preferable? In what scenario would 
      counter2 be better?  
+     Counter1 is saved for use later and makes a beter parent function. Counter2 makes for a better closure, or as an argument to another function.
 */
 
 // counter1 code
@@ -61,11 +64,13 @@ Use the inning function below to do the following:
   For example: invoking inning() should return a numerical score value of 0, 1, or 2
 */
 
-function inning(/*Code Here*/){
+function inning(){
 
-    /*Code Here*/
+    return Math.floor(Math.random() * Math.floor(3));
 
 }
+
+console.log(inning());
 
 /* Task 3: finalScore()
 Use the finalScore function below to do the following:
@@ -80,19 +85,36 @@ For example: invoking finalScore(inning, 9) might return this object:
 }
 */ 
 
-function finalScore(/*code Here*/){
+ function finalScore(inningCB, num){ 
+  let homeScore=0;
+  let awayScore= 0;
 
-  /*Code Here*/
+for (let i =0; i<num ;i++){
 
+  homeScore += inning()
+  awayScore += inning()
+
+  return{
+    Home : homeScore,
+    Away : awayScore,
+  }
 }
+}
+ 
+
+
 
 /* Task 4: 
 // create a function called getInningScore 
 // the function should take the inning function as an argument 
 // it should return an object with with a score for home and a score for away that that populates from invoking the inning callback. */
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
+function getInningScore(inningCB) {
+  return {
+    Home: inningCB(),
+    Away: inningCB(),
+  }
+  
 }
 /* Task 5: scoreboard()
 Use the scoreboard function below to do the following:
@@ -136,27 +158,51 @@ Use the scoreboard function below to do the following:
   "This game will require extra innings: Away 12 - Home 12"
 ]  
   */
+// `Inning ${scoreB[i]}: Away ${away} - Home ${home}`
 
+function scoreboard(getInningScoreCB, inningCB, num) {
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+  scoreB=[];
+  let inningScore= 0;
+let home=0;
+let away=0;
+ for (let i = 1; i <num ; i ++){
+   inningScore = getInningScoreCB(inningCB);
+   home= home + inningScore.Home;//getInningScoreCB(inningCB).Home;
+   away= away + inningScore.Away;//getInningScoreCB(inningCB).Away;
+   scoreB.push (`Inning ${i}: Away ${away} - Home ${home}`);
+   
+ }
+console.log(home);
+if( home !== away){
+  scoreB.push (`Final Score: Away ${away} - Home ${home}`);
+   
+}
+else if (home===away){
+ scoreB.push (`This game will require extra innings: Away ${away} - Home ${home}`);
+}
+
+return scoreB;
+
 }
 
 
 
+
+console.log(scoreboard(getInningScore,inning, 10));
 
 /* 🛑🛑🛑🛑🛑 Please do not modify anything below this line 🛑🛑🛑🛑🛑 */
 function foo(){
   console.log('its working');
   return 'bar';
 }
-export default{
-  foo,
-  processFirstItem,
-  counter1,
-  counter2,
-  inning,
-  finalScore,
-  getInningScore,
-  scoreboard,
-}
+// export default{
+//   foo,
+//   processFirstItem,
+//   counter1,
+//   counter2,
+//   inning,
+//   finalScore,
+//   getInningScore,
+//   scoreboard,
+// }
