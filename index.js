@@ -185,10 +185,6 @@ else if (home===away){
 return scoreB;
 
 }
-
-
-
-
 console.log(scoreboard(getInningScore,inning, 10));
 
 /* 🛑🛑🛑🛑🛑 Please do not modify anything below this line 🛑🛑🛑🛑🛑 */
@@ -196,13 +192,3 @@ function foo(){
   console.log('its working');
   return 'bar';
 }
-// export default{
-//   foo,
-//   processFirstItem,
-//   counter1,
-//   counter2,
-//   inning,
-//   finalScore,
-//   getInningScore,
-//   scoreboard,
-// }
